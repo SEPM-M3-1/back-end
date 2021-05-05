@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:h2:mem:testdb
-    username: postgres
-    password: admin
+    username: sepm
+    password: sepm
     driver-class-name: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
@@ -11,6 +11,3 @@ spring:
         default_schema: PUBLIC
   flyway:
     enabled: false
-
-jwt:
-  secret: securesecuresecuresecuresecuresecu

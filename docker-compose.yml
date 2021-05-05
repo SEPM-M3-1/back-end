@@ -1,0 +1,18 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'sepm'
+      MYSQL_USER: 'sepm'
+      MYSQL_PASSWORD: 'sepm'
+      MYSQL_ROOT_PASSWORD: 'sepm'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+volumes:
