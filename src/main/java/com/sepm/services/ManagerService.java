@@ -1,8 +1,11 @@
 package com.sepm.services;
 
 import com.sepm.dao.ManagerRepository;
-import com.sepm.dtos.*;
+import com.sepm.dtos.ManagerGetDto;
+import com.sepm.dtos.ManagerPostDto;
+import com.sepm.dtos.PasswordResetDto;
 import com.sepm.entities.Manager;
+import com.sepm.exception.ManagerNotFundException;
 import com.sepm.mapper.ManagerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,7 +39,19 @@ public class ManagerService {
         }
     }*/
 
-    private boolean emailExists(String email){
+    private boolean emailExists(String email) {
         return managerRepository.findByEmail(email).isPresent();
+    }
+
+    public boolean changePassword(PasswordResetDto passwordResetDto) {
+
+        Manager returnedManager = managerRepository.findById(passwordResetDto.getId())
+                .orElseThrow(() -> new ManagerNotFundException("Can not find Manager!"));
+
+        if (returnedManager.getPassword().equals(passwordResetDto.getOldPassword())){
+            returnedManager.setPassword(passwordResetDto.getPassword());
+            return true;
+        }
+        return false;
     }
 }

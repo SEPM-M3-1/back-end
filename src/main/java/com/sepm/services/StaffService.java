@@ -1,10 +1,13 @@
 package com.sepm.services;
 
 import com.sepm.dao.StaffRepository;
+import com.sepm.dtos.PasswordResetDto;
 import com.sepm.dtos.StaffGetDto;
 import com.sepm.dtos.StaffPostDto;
 import com.sepm.entities.Manager;
 import com.sepm.entities.Staff;
+import com.sepm.exception.ManagerNotFundException;
+import com.sepm.exception.StaffNotFundException;
 import com.sepm.mapper.StaffMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,5 +37,16 @@ public class StaffService {
 
     private boolean emailExists(String email) {
         return staffRepository.findByEmail(email).isPresent();
+    }
+
+    public boolean changePassword(PasswordResetDto passwordResetDto) {
+        Staff returnedStaff = staffRepository.findById(passwordResetDto.getId())
+                .orElseThrow(() -> new StaffNotFundException("Can not find Staff!"));
+
+        if (returnedStaff.getPassword().equals(passwordResetDto.getOldPassword())){
+            returnedStaff.setPassword(passwordResetDto.getPassword());
+            return true;
+        }
+        return false;
     }
 }

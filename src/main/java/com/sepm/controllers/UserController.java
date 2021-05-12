@@ -1,17 +1,14 @@
 package com.sepm.controllers;
 
-import com.sepm.dtos.LoginDto;
-import com.sepm.dtos.ManagerPostDto;
-import com.sepm.dtos.StaffPostDto;
+import com.sepm.dtos.*;
 import com.sepm.services.ManagerService;
 import com.sepm.services.StaffService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -38,15 +35,20 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity staffRegistration(StaffPostDto dto) {
+    public ResponseEntity staffRegistration(@RequestBody StaffPostDto dto) {
         return new ResponseEntity(staffService.createStaff(dto), HttpStatus.OK);
     }
 
     @PostMapping("/signup")
-    public ResponseEntity managerSignup(ManagerPostDto dto) {
+    public ResponseEntity managerSignup(@RequestBody ManagerPostDto dto) {
         return new ResponseEntity(managerService.createManager(dto), HttpStatus.OK);
     }
 
-
-
+    @PutMapping("/passwordreset")
+    public ResponseEntity changePassword(@RequestBody PasswordResetDto passwordResetDto) {
+        if (Type.MANAGER.equals(passwordResetDto.getType())) {
+            return new ResponseEntity(managerService.changePassword(passwordResetDto), HttpStatus.OK);
+        }
+        return new ResponseEntity(staffService.changePassword(passwordResetDto), HttpStatus.OK);
+    }
 }
