@@ -1,4 +1,4 @@
-package com.sepm.m31;
+package com.sepm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

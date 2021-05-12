@@ -1,4 +1,4 @@
-package com.sepm.m31;
+package com.sepm;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
