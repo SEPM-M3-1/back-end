@@ -6,7 +6,7 @@ import com.sepm.entities.Staff;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring")
 public interface StaffMapper {
 
     Staff toEntity(StaffPostDto staffPostDto);

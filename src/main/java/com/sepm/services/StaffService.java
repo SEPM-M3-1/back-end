@@ -12,6 +12,8 @@ import com.sepm.mapper.StaffMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class StaffService {
@@ -39,6 +41,7 @@ public class StaffService {
         return staffRepository.findByEmail(email).isPresent();
     }
 
+    @Transactional
     public boolean changePassword(PasswordResetDto passwordResetDto) {
 
         Staff returnedStaff = staffRepository.findById(passwordResetDto.getId())
