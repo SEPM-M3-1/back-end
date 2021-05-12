@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.mapping.Set;
 
 import javax.persistence.*;
+import java.util.HashSet;
 
 @Entity
 @Data
@@ -40,5 +42,8 @@ public class Staff {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "available_date")
+    private Set availableDate;
 
 }
