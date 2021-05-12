@@ -25,7 +25,7 @@ public interface ManagerRepository extends JpaRepository<Manager, Long> {
 
     @Modifying
     @Query("update Manager m set m.password=:password where m.id=:id")
-    int updatePasswordById(String password, String id);
+    int updatePasswordById(String password, Long id);
 
 
 }

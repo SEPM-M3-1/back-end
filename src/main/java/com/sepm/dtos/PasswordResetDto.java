@@ -10,10 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PasswordResetDto {
-    private Long id;
-    private String oldPassword;
-    private String password;
-    private String type;
 
+    private Long id;
+
+    private String oldPassword;
+
+    private String password;
+
+    private String type;
 
 }

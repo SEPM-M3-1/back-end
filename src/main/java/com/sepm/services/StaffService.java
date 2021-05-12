@@ -40,11 +40,12 @@ public class StaffService {
     }
 
     public boolean changePassword(PasswordResetDto passwordResetDto) {
+
         Staff returnedStaff = staffRepository.findById(passwordResetDto.getId())
                 .orElseThrow(() -> new StaffNotFundException("Can not find Staff!"));
 
         if (returnedStaff.getPassword().equals(passwordResetDto.getOldPassword())){
-            returnedStaff.setPassword(passwordResetDto.getPassword());
+            staffRepository.updatePasswordById(passwordResetDto.getPassword(), passwordResetDto.getId());
             return true;
         }
         return false;

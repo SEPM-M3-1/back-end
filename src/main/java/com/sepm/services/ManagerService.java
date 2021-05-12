@@ -49,7 +49,7 @@ public class ManagerService {
                 .orElseThrow(() -> new ManagerNotFundException("Can not find Manager!"));
 
         if (returnedManager.getPassword().equals(passwordResetDto.getOldPassword())){
-            returnedManager.setPassword(passwordResetDto.getPassword());
+            managerRepository.updatePasswordById(passwordResetDto.getPassword(),passwordResetDto.getId());
             return true;
         }
         return false;

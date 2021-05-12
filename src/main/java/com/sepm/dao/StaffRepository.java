@@ -33,7 +33,7 @@ public interface StaffRepository extends JpaRepository<Staff, Long> {
 
     @Modifying
     @Query("update Staff s set s.password=:password where s.id=:id")
-    int updatePasswordById(String password, String id);
+    int updatePasswordById(String password, Long id);
 
     @Modifying
     @Query("update Staff s set s.hourLimits=:hourLimits where s.id=:id")
