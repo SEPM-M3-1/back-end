@@ -1,8 +1,7 @@
 package com.sepm.services;
 
 import com.sepm.dao.ManagerRepository;
-import com.sepm.dtos.ManagerGetDto;
-import com.sepm.dtos.ManagerPostDto;
+import com.sepm.dtos.*;
 import com.sepm.entities.Manager;
 import com.sepm.mapper.ManagerMapper;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +29,12 @@ public class ManagerService {
         }
         return null;
     }
+
+    /*public void changePassword(ManagerPutDto managerPutDto){
+        if(managerPutDto.getPassword().equals(managerRepository.findById(managerPutDto.getId()))){
+
+        }
+    }*/
 
     private boolean emailExists(String email){
         return managerRepository.findByEmail(email).isPresent();
