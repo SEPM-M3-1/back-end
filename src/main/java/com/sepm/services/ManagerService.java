@@ -8,8 +8,10 @@ import com.sepm.entities.Manager;
 import com.sepm.exception.ManagerNotFundException;
 import com.sepm.mapper.ManagerMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ManagerService {
@@ -27,6 +29,8 @@ public class ManagerService {
 
     public ManagerGetDto createManager(ManagerPostDto managerPostDto){
         if(!emailExists(managerPostDto.getEmail())){
+            Manager test = mapper.toEntity(managerPostDto);
+            log.info("测试： "+test);
             Manager manager = managerRepository.save(mapper.toEntity(managerPostDto));
             return mapper.fromEntity(manager);
         }

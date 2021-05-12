@@ -6,7 +6,7 @@ import com.sepm.entities.Manager;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring")
 public interface ManagerMapper {
 
     Manager toEntity(ManagerPostDto managerPostDto);
