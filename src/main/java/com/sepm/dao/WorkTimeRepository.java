@@ -18,14 +18,12 @@ public interface WorkTimeRepository extends JpaRepository<WorkTime, Long> {
 
 
 
-//
+
 //        @Modifying
 //        @Query("update WorkTime wt " +
 //                "set s.start_time=:start_time, " +
 //                "s.end_time=:end_time, " +
-//                "s.id=:id, " +
-//                "s.preferredName=:preferredName, " +
-//                "s.address=:address " +
+//                "s.staffid=:id, " +
 //                "where s.id=:id")
 //        int updateProfileById (@Param("id") Long id,
 //            @Param("email") String email,

@@ -15,14 +15,13 @@ import java.util.Date;
 @Builder
 public class WorkTimeDto {
 
-    @NotEmpty
-    private String id;
+
 
     @NotEmpty
     private String title;
-
-    @NotEmpty
-    private String ownerId;
+//
+//    @NotEmpty
+//    private String ownerId;
 
     @NotEmpty
     private Date endDate;

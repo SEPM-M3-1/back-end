@@ -3,14 +3,12 @@ package com.sepm.controllers;
 import com.sepm.dtos.*;
 import com.sepm.services.ManagerService;
 import com.sepm.services.StaffService;
+import com.sepm.services.WorkTimeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -21,6 +19,7 @@ public class UserController {
 
     private final ManagerService managerService;
     private final StaffService staffService;
+    private final WorkTimeService workTimeService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginDto loginDto){
@@ -57,7 +56,17 @@ public class UserController {
         return new ResponseEntity(staffService.changePassword(passwordResetDto), HttpStatus.OK);
     }
 
+    @PostMapping("/staff/{ownerId}/settime")
+    public ResponseEntity setAvaliableTime(@Valid @PathVariable("ownerId") Long ownerId ,
+                                           @RequestBody WorkTimeDto dto) {
 
+
+        if(workTimeService.createWorkTime(ownerId,dto)){
+            return new ResponseEntity(true,HttpStatus.OK);
+        }
+        return new ResponseEntity(false,HttpStatus.BAD_REQUEST);
+
+    }
 
 
 }
