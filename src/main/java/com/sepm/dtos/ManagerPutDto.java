@@ -27,6 +27,4 @@ public class ManagerPutDto {
     @NotEmpty
     private String phone;
 
-    @NotEmpty
-    private String password;
 }

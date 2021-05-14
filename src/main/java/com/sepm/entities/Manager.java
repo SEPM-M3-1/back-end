@@ -20,7 +20,7 @@ public class Manager {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
     @Column(name = "full_name", nullable = false)
