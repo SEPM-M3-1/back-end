@@ -3,7 +3,6 @@ package com.sepm.controllers;
 import com.sepm.dtos.*;
 import com.sepm.services.ManagerService;
 import com.sepm.services.StaffService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,11 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @Slf4j
-@Data
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-//test123
+
     private final ManagerService managerService;
     private final StaffService staffService;
 
@@ -47,7 +45,7 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity managerSignup(@Valid @RequestBody ManagerPostDto dto) {
-        log.info("邮箱: " + dto.getEmail());
+        log.info("邮箱",dto.getEmail());
         return new ResponseEntity(managerService.createManager(dto), HttpStatus.OK);
     }
 
@@ -58,4 +56,8 @@ public class UserController {
         }
         return new ResponseEntity(staffService.changePassword(passwordResetDto), HttpStatus.OK);
     }
+
+
+
+
 }

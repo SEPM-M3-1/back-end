@@ -18,7 +18,8 @@ public interface ManagerRepository extends JpaRepository<Manager, Long> {
 
     @Modifying
     @Query("update Manager m set m.email=:email, m.fullName=:fullName, m.phone=:phone where m.id=:id")
-    int updateProfileById(@Param("id") Long id,
+    int updateProfileById(
+            @Param("id") Long id,
                           @Param("email") String email,
                           @Param("fullName") String fullName,
                           @Param("phone") String phone);

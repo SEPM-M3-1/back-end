@@ -37,7 +37,7 @@ public class StaffService {
         return null;
     }
 
-    private boolean emailExists(String email) {
+    public boolean emailExists(String email) {
         return staffRepository.findByEmail(email).isPresent();
     }
 
