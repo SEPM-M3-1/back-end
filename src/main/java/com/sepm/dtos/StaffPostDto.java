@@ -34,4 +34,6 @@ public class StaffPostDto {
     @NotEmpty
     @Pattern(regexp = "^(?=\\S*[a-z])(?=\\S*[A-Z])(?=\\S*[0-9])(?=\\S*[#!\"$%&'()*+,-./:;<=>?@\\[\\]^_`{|}~]).{8}$")
     private String password;
+
+
 }

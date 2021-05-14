@@ -38,4 +38,8 @@ public interface StaffRepository extends JpaRepository<Staff, Long> {
     @Modifying
     @Query("update Staff s set s.hourLimits=:hourLimits where s.id=:id")
     int updateHourLimitsById(@Param("hourLimits") Integer hourLimits, @Param("id") Long id);
+
+
+
+
 }

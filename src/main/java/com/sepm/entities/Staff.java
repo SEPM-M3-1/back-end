@@ -8,6 +8,7 @@ import org.hibernate.mapping.Set;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 
 @Entity
 @Data
@@ -43,7 +44,9 @@ public class Staff {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "available_date")
-    private Set availableDate;
+    @OneToMany(mappedBy = "staff",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    private List<WorkTime> worktime;
 
 }
