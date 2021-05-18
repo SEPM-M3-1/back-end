@@ -10,7 +10,7 @@ import javax.validation.constraints.Pattern;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Builder
 public class StaffPutDto {
 

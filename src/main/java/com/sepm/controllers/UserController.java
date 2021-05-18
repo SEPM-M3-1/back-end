@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 
 @Slf4j
 @RestController
@@ -53,7 +54,7 @@ public class UserController {
         if (Type.MANAGER.equals(passwordResetDto.getType())) {
             return new ResponseEntity(managerService.changePassword(passwordResetDto), HttpStatus.OK);
         }
-        return new ResponseEntity(staffService.changePassword(passwordResetDto), HttpStatus.OK);
+        return new ResponseEntity(staffService.changePassword(passwordResetDto),HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/staff/{ownerId}/settime")
@@ -68,5 +69,18 @@ public class UserController {
 
     }
 
+    @GetMapping("/avilableStaff")
+    public ResponseEntity avilableStaff(@RequestParam("startTime") Date startTime, @RequestParam("endTime") Date endTime) {
+        return new ResponseEntity(workTimeService.fetchUserListByWorkTime(startTime, endTime), HttpStatus.OK);
+
+
+    }
+
+//    @PutMapping("/shiftSave")
+//    public ResponseEntity shiftSave(@RequestBody ManagerQueryDto dto) {
+//
+//        return new ResponseEntity(JustifyWorkTime);
+//
+//    }
 
 }

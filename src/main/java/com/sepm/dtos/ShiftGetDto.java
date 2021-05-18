@@ -8,27 +8,21 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
-
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class WorkTimeDto {
+public class ShiftGetDto {
 
-
-
-    @NotEmpty
-    private String title;
-
-    //Mon Mar 16
     @NotEmpty
     private Date endDate;
-    // Tue May 18 21:31:13 CST 2021
 
     @NotEmpty
     private Date startDate;
 
+    @NotEmpty
+    private String location;
 
-
-
+    @NotEmpty
+    private String allocated;
 }
