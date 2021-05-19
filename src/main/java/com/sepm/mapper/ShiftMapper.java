@@ -9,7 +9,7 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ShiftMapper {
-    Shift toEntity(ShiftPutDto shiftPutDto);
+    Shift toEntity(ShiftPostDto shiftPostDto);
 
     ShiftGetDto fromEntity(Shift shift);
 }

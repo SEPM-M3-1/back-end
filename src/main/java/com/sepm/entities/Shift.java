@@ -1,9 +1,6 @@
 package com.sepm.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,19 +17,28 @@ public class Shift {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "startDate", nullable = false)
+    @Column(name = "start_date", nullable = false)
     private Long startDate;
 
-    @Column(name = "endDate", nullable = false)
+    @Column(name = "end_date", nullable = false)
     private Long endDate;
 
     @Column(name = "location", nullable = false)
     private String location;
 
-    @Column(name = "requestExchange", nullable = false)
-    private String requestExchange;
+    @Column(name = "request_exchange")
+    private Long requestExchange;
 
     @Column(name = "allocated", nullable = false)
-    private String allocated;
+    private Long allocated;
+
+//    @EqualsAndHashCode.Exclude
+//    @ToString.Exclude
+//    @ManyToOne(cascade = CascadeType.ALL,
+//            fetch = FetchType.EAGER)
+//    @JoinColumn(name = "staffid",
+//            referencedColumnName = "id",
+//            nullable = false)
+//    private Staff staff;
 }
 

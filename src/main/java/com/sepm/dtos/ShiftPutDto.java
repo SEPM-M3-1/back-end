@@ -23,6 +23,6 @@ public class ShiftPutDto {
     private String location;
 
     @NotEmpty
-    private String allocated;
+    private Long allocated;
 
 }

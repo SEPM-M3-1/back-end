@@ -2,6 +2,7 @@ package com.sepm.controllers;
 
 import com.sepm.dtos.*;
 import com.sepm.services.ManagerService;
+import com.sepm.services.ShiftService;
 import com.sepm.services.StaffService;
 import com.sepm.services.WorkTimeService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class UserController {
     private final ManagerService managerService;
     private final StaffService staffService;
     private final WorkTimeService workTimeService;
+    private final ShiftService shiftService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginDto loginDto){
@@ -76,11 +78,11 @@ public class UserController {
 
     }
 
-//    @PutMapping("/shiftSave")
-//    public ResponseEntity shiftSave(@RequestBody ManagerQueryDto dto) {
-//
-//        return new ResponseEntity(JustifyWorkTime);
-//
-//    }
+    @PostMapping("/createShift")
+    public ResponseEntity createshift(@RequestBody ShiftPostDto dto) {
+
+        return new ResponseEntity(shiftService.createShift(dto), HttpStatus.OK);
+
+    }
 
 }

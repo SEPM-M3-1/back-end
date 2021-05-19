@@ -49,4 +49,9 @@ public class Staff {
             fetch = FetchType.EAGER)
     private List<WorkTime> worktime;
 
+//    @OneToMany(mappedBy = "staff",
+//            cascade = CascadeType.ALL,
+//            fetch = FetchType.EAGER)
+//    private List<Shift> Shift;
+
 }

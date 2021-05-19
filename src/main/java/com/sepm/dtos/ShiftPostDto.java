@@ -25,5 +25,7 @@ import java.util.Date;
         private String location;
 
         @NotEmpty
-        private String allocated;
+        private Long allocated;
+
+
 }

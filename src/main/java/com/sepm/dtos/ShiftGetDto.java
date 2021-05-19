@@ -14,6 +14,7 @@ import java.util.Date;
 @Builder
 public class ShiftGetDto {
 
+
     @NotEmpty
     private Long endDate;
 
@@ -24,5 +25,6 @@ public class ShiftGetDto {
     private String location;
 
     @NotEmpty
-    private String allocated;
+    private Long allocated;
+
 }
