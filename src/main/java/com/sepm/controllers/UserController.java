@@ -70,7 +70,7 @@ public class UserController {
     }
 
     @GetMapping("/avilableStaff")
-    public ResponseEntity avilableStaff(@RequestParam("startTime") Date startTime, @RequestParam("endTime") Date endTime) {
+    public ResponseEntity avilableStaff(@RequestParam("startDate") Long startTime, @RequestParam("endDate") Long endTime) {
         return new ResponseEntity(workTimeService.fetchUserListByWorkTime(startTime, endTime), HttpStatus.OK);
 
 

@@ -15,8 +15,8 @@ import java.util.Date;
 public class ManagerQueryDto
 {
     @NotEmpty
-    private Date endDate;
+    private Long endDate;
 
     @NotEmpty
-    private Date startDate;
+    private Long startDate;
 }

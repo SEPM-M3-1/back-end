@@ -14,10 +14,10 @@ import java.util.Date;
 @Builder
 public class ShiftPutDto {
     @NotEmpty
-    private Date endDate;
+    private Long endDate;
 
     @NotEmpty
-    private Date startDate;
+    private Long startDate;
 
     @NotEmpty
     private String location;

@@ -46,7 +46,7 @@ public class Staff {
 
     @OneToMany(mappedBy = "staff",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     private List<WorkTime> worktime;
 
 }

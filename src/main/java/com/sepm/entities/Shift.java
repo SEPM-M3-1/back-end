@@ -20,11 +20,11 @@ public class Shift {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "start_time", nullable = false)
-    private Date start_time;
+    @Column(name = "startDate", nullable = false)
+    private Long startDate;
 
-    @Column(name = "end_time", nullable = false)
-    private Date end_time;
+    @Column(name = "endDate", nullable = false)
+    private Long endDate;
 
     @Column(name = "location", nullable = false)
     private String location;

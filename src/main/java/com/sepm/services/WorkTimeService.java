@@ -36,13 +36,16 @@ public class WorkTimeService {
 
     }
 
-    public List<WorkTimeGetDto> fetchUserListByWorkTime(Date startTime, Date endTime){
+    public List<WorkTimeGetDto> fetchUserListByWorkTime(Long startTime, Long endTime){
         List<WorkTime> userList = workTimeRepository.JustifyWorkTime(startTime, endTime);
         List<WorkTimeGetDto> listOfDtos = new ArrayList<>();
         if(userList.size()>0){
-            listOfDtos = userList.stream().map(workTimeMapper::fromEntity).collect(Collectors.toList());
-            listOfDtos.forEach(user -> user.setUserName(staffRepository.findById(user.getUserId()).get().getFullName()));
+            listOfDtos = userList.stream().map(user->WorkTimeGetDto.builder().
+                    id(user.getStaff().getId()).userName(user.getStaff().getFullName()).startDate(user.getStartDate()).endDate(user.getEndDate()).build()).collect(Collectors.toList());
+//            listOfDtos.forEach(user -> user.setUserName(staffRepository.findById(user.getId()).get().getFullName()));
+
         }
+
         return listOfDtos;
     };
 

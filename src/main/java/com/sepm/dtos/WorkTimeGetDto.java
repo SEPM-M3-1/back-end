@@ -15,14 +15,14 @@ import java.util.Date;
 public class WorkTimeGetDto {
 
     @NotEmpty
-    private Long userId;
+    private Long id;
     @NotEmpty
     private String userName;
 
     @NotEmpty
-    private Date endDate;
+    private Long endDate;
 
     @NotEmpty
-    private Date startDate;
+    private Long startDate;
 
 }

@@ -20,8 +20,8 @@ public interface WorkTimeRepository extends JpaRepository<WorkTime, Long> {
 
             @Query(nativeQuery = true, value = "select * " +
                     "from WorkTime wt " +
-                    "where wt.start_time>=:start_time and wt.end_time<=:end_time ")
-            List<WorkTime> JustifyWorkTime(@Param("start_time") Date start_time,
-                                           @Param("end_time") Date end_time);
+                    "where wt.start_date>=:startDate and wt.end_date<=:endDate ")
+            List<WorkTime> JustifyWorkTime(@Param("startDate") Long startDate,
+                                           @Param("endDate") Long endDate);
 
 }

@@ -15,10 +15,10 @@ import java.util.Date;
 public class ShiftGetDto {
 
     @NotEmpty
-    private Date endDate;
+    private Long endDate;
 
     @NotEmpty
-    private Date startDate;
+    private Long startDate;
 
     @NotEmpty
     private String location;

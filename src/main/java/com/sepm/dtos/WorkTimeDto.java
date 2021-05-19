@@ -18,15 +18,15 @@ public class WorkTimeDto {
 
 
     @NotEmpty
-    private String title;
+    private String ownerID;
 
     //Mon Mar 16
     @NotEmpty
-    private Date endDate;
+    private Long endDate;
     // Tue May 18 21:31:13 CST 2021
 
     @NotEmpty
-    private Date startDate;
+    private Long startDate;
 
 
 
