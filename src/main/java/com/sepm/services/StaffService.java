@@ -76,5 +76,10 @@ public class StaffService {
         return staffMapper.profileFromEntity(staffRepository.findById(dto.getId()).get());
     }
 
+    @Transactional
+    public void changeHourLimits(Integer num, Long id) {
+        staffRepository.updateHourLimitsById(num,id);
+    }
+
 
 }

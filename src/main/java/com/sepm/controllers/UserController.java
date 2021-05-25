@@ -103,14 +103,20 @@ public class UserController {
     }
 
     @GetMapping("/allmanagers")
-    public  ResponseEntity fetAllManagers() {
+    public ResponseEntity fetAllManagers() {
         return new ResponseEntity(managerService.fetchAllManagers(), HttpStatus.OK);
     }
 
     @GetMapping("/allstaff")
-    public  ResponseEntity fetAllStaff() {
+    public ResponseEntity fetAllStaff() {
         return new ResponseEntity(staffService.fetchAllStaff(), HttpStatus.OK);
     }
 
+
+    @PutMapping("/changehourlimits")
+    public ResponseEntity changeStaffHourLimits(@RequestParam("hourlimits") Integer hourLimits, @RequestParam("id") Long id) {
+        staffService.changeHourLimits(hourLimits, id);
+        return new ResponseEntity("Succeed to change the hour limits!", HttpStatus.OK);
+    }
 
 }
