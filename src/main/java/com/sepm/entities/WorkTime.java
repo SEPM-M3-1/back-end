@@ -1,9 +1,6 @@
 package com.sepm.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,14 +17,16 @@ public class WorkTime {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "start_time", nullable = false)
-    private Date start_time;
+    @Column(name = "startDate", nullable = false)
+    private Long startDate;
 
-    @Column(name = "end_time", nullable = false)
-    private Date end_time;
+    @Column(name = "endDate", nullable = false)
+    private Long endDate;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @ManyToOne(cascade = CascadeType.ALL,
-    fetch = FetchType.LAZY)
+    fetch = FetchType.EAGER)
     @JoinColumn(name = "staffid",
     referencedColumnName = "id",
     nullable = false)

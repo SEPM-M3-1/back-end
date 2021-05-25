@@ -1,20 +1,22 @@
 package com.sepm.dtos;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
+import java.util.Date;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
-//@AllArgsConstructor
 @Builder
-public class StaffPutDto {
+public class ManagerQueryDto
+{
+    @NotEmpty
+    private Long endDate;
 
-
+    @NotEmpty
+    private Long startDate;
 }
-
-

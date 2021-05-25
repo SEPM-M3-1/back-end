@@ -7,6 +7,7 @@ import com.sepm.dtos.StaffPostDto;
 import com.sepm.entities.Manager;
 import com.sepm.entities.Staff;
 import com.sepm.exception.ManagerNotFundException;
+import com.sepm.exception.StaffAlreadyExistException;
 import com.sepm.exception.StaffNotFundException;
 import com.sepm.mapper.StaffMapper;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,7 @@ public class StaffService {
             Staff staff = staffRepository.save(staffMapper.toEntity(staffPostDto));
             return staffMapper.fromEntity(staff);
         }
-        return null;
+        throw new StaffAlreadyExistException("Staff Already Exist");
     }
 
     public boolean emailExists(String email) {
@@ -53,4 +54,9 @@ public class StaffService {
         }
         return false;
     }
+
+
+
+
+
 }
