@@ -1,11 +1,10 @@
 package com.sepm.services;
 
 import com.sepm.dao.StaffRepository;
-import com.sepm.dtos.PasswordResetDto;
-import com.sepm.dtos.StaffGetDto;
-import com.sepm.dtos.StaffPostDto;
+import com.sepm.dtos.*;
 import com.sepm.entities.Manager;
 import com.sepm.entities.Staff;
+import com.sepm.exception.BadCredentialsException;
 import com.sepm.exception.ManagerNotFundException;
 import com.sepm.exception.StaffAlreadyExistException;
 import com.sepm.exception.StaffNotFundException;
@@ -14,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,12 +23,14 @@ public class StaffService {
     private final StaffRepository staffRepository;
     private final StaffMapper staffMapper;
 
-    public boolean staffLogin(String email, String password) {
+    public LoginGetDto staffLogin(String email, String password){
         if(emailExists(email)){
             Staff staff = staffRepository.findByEmail(email).get();
-            return staff.getPassword().equals(password);
+            if( staff.getPassword().equals(password)) {
+                return staffMapper.loginDtoFromEntity(staff);
+            }
         }
-        return false;
+        throw new BadCredentialsException("Email or password is incorrect");
     }
 
     public StaffGetDto createStaff(StaffPostDto staffPostDto) {
@@ -55,8 +58,23 @@ public class StaffService {
         return false;
     }
 
+    public List<StaffProfileDto> fetchAllStaff(){
+        return  staffRepository.findAll().stream()
+                .map(staff -> staffMapper.profileFromEntity(staff))
+                .collect(Collectors.toList());
+    }
 
+    public StaffProfileDto fetchProfileByEmail(String email) {
+        Staff staff = staffRepository.findByEmail(email)
+                .orElseThrow(() -> new StaffNotFundException("No such staff found"));
+        return staffMapper.profileFromEntity(staff);
+    }
 
+    @Transactional
+    public StaffProfileDto changeStaffProfile (StaffProfileDto dto) {
+        staffRepository.updateProfileById(dto.getId(), dto.getEmail(), dto.getFullName(), dto.getPhone(), dto.getPreferredName(), dto.getAddress());
+        return staffMapper.profileFromEntity(staffRepository.findById(dto.getId()).get());
+    }
 
 
 }

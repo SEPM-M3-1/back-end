@@ -1,18 +1,21 @@
 package com.sepm.services;
 
 import com.sepm.dao.ManagerRepository;
-import com.sepm.dtos.ManagerGetDto;
-import com.sepm.dtos.ManagerPostDto;
-import com.sepm.dtos.PasswordResetDto;
+import com.sepm.dtos.*;
 import com.sepm.entities.Manager;
+import com.sepm.entities.Staff;
+import com.sepm.exception.BadCredentialsException;
 import com.sepm.exception.ManagerNotFundException;
+import com.sepm.exception.StaffNotFundException;
 import com.sepm.mapper.ManagerMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -22,12 +25,14 @@ public class ManagerService {
     private final ManagerRepository managerRepository;
     private final ManagerMapper mapper;
 
-    public boolean managerLogin(String email,String password){
+    public LoginGetDto managerLogin(String email,String password){
         if(emailExists(email)){
             Manager manager = managerRepository.findByEmail(email).get();
-            return manager.getPassword().equals(password);
+            if( manager.getPassword().equals(password)) {
+                return mapper.loginDtoFromEntity(manager);
+            }
         }
-        return false;
+        throw new BadCredentialsException("Email or password is incorrect");
     }
 
     public ManagerGetDto createManager(ManagerPostDto managerPostDto){
@@ -40,11 +45,6 @@ public class ManagerService {
         return null;
     }
 
-    /*public void changePassword(ManagerPutDto managerPutDto){
-        if(managerPutDto.getPassword().equals(managerRepository.findById(managerPutDto.getId()))){
-
-        }
-    }*/
 
     private boolean emailExists(String email) {
         return managerRepository.findByEmail(email).isPresent();
@@ -61,6 +61,24 @@ public class ManagerService {
             return true;
         }
         return false;
+    }
+
+    public List<ManagerProfileDto> fetchAllManagers(){
+        return  managerRepository.findAll().stream()
+                .map(manager -> mapper.profileFromEntity(manager))
+                .collect(Collectors.toList());
+    }
+
+    public ManagerProfileDto fetchProfileByEmail(String email) {
+        Manager manager = managerRepository.findByEmail(email)
+                .orElseThrow(() -> new ManagerNotFundException("No such manager found"));
+        return mapper.profileFromEntity(manager);
+    }
+
+    @Transactional
+    public ManagerProfileDto changeManagerProfile (ManagerProfileDto dto) {
+        managerRepository.updateProfileById(dto.getId(), dto.getEmail(), dto.getFullName(), dto.getPhone());
+        return mapper.profileFromEntity(managerRepository.findById(dto.getId()).get());
     }
 
 }

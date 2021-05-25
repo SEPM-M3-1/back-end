@@ -27,17 +27,11 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginDto loginDto){
 
-        boolean isValidated;
-
         if("Manager".equals(loginDto.getType())){
-            isValidated = managerService.managerLogin(loginDto.getEmail(), loginDto.getPassword());
+            return new ResponseEntity(managerService.managerLogin(loginDto.getEmail(), loginDto.getPassword()), HttpStatus.OK);
         }else {
-            isValidated = staffService.staffLogin(loginDto.getEmail(), loginDto.getPassword());
+            return new ResponseEntity(staffService.staffLogin(loginDto.getEmail(), loginDto.getPassword()), HttpStatus.OK);
         }
-        if(isValidated){
-            return new ResponseEntity("success", HttpStatus.OK);
-        }
-        return new ResponseEntity("fail", HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/registration")
@@ -72,18 +66,51 @@ public class UserController {
 
     }
 
-    @GetMapping("/avilableStaff")
+    @GetMapping("/avilablestaff")
     public ResponseEntity avilableStaff(@RequestParam("startDate") Long startTime, @RequestParam("endDate") Long endTime) {
         return new ResponseEntity(workTimeService.fetchUserListByWorkTime(startTime, endTime), HttpStatus.OK);
 
 
     }
 
-    @PostMapping("/createShift")
+    @PostMapping("/createshift")
     public ResponseEntity createshift(@RequestBody ShiftPostDto dto) {
 
         return new ResponseEntity(shiftService.createShift(dto), HttpStatus.OK);
 
     }
+
+    @GetMapping("/staffprofile")
+    public ResponseEntity fetchStaffProfileByEmail(@RequestParam("email") String email) {
+
+        return new ResponseEntity(staffService.fetchProfileByEmail(email), HttpStatus.OK);
+    }
+
+    @PutMapping("/staffprofile/change")
+    public ResponseEntity changeStaffProfile(@RequestBody StaffProfileDto dto) {
+        return new ResponseEntity(staffService.changeStaffProfile(dto), HttpStatus.OK);
+    }
+
+    @GetMapping("/managerprofile")
+    public ResponseEntity fetchManagerProfileByEmail(@RequestParam("email") String email) {
+
+        return new ResponseEntity(managerService.fetchProfileByEmail(email), HttpStatus.OK);
+    }
+
+    @PostMapping("/managerprofile")
+    public ResponseEntity changeManagerProfile(@RequestBody ManagerProfileDto dto){
+        return new ResponseEntity(managerService.changeManagerProfile(dto), HttpStatus.OK);
+    }
+
+    @GetMapping("/allmanagers")
+    public  ResponseEntity fetAllManagers() {
+        return new ResponseEntity(managerService.fetchAllManagers(), HttpStatus.OK);
+    }
+
+    @GetMapping("/allstaff")
+    public  ResponseEntity fetAllStaff() {
+        return new ResponseEntity(staffService.fetchAllStaff(), HttpStatus.OK);
+    }
+
 
 }

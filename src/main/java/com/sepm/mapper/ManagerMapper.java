@@ -1,7 +1,6 @@
 package com.sepm.mapper;
 
-import com.sepm.dtos.ManagerGetDto;
-import com.sepm.dtos.ManagerPostDto;
+import com.sepm.dtos.*;
 import com.sepm.entities.Manager;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -12,5 +11,9 @@ public interface ManagerMapper {
     Manager toEntity(ManagerPostDto managerPostDto);
 
     ManagerGetDto fromEntity(Manager manager);
+
+    ManagerProfileDto profileFromEntity (Manager manager);
+
+    LoginGetDto loginDtoFromEntity(Manager manager);
 
 }
