@@ -42,6 +42,7 @@ public class UserController {
 
     @PostMapping("/registration")
     public ResponseEntity staffRegistration(@Valid @RequestBody StaffPostDto dto) {
+        log.info("aaa",dto.getHourLimits());
         return new ResponseEntity(staffService.createStaff(dto), HttpStatus.OK);
     }
 

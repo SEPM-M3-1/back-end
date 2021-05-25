@@ -25,7 +25,6 @@ public class StaffPostDto {
     @NotEmpty
     private String phone;
 
-    @NotEmpty
     private Integer hourLimits;
 
     @NotEmpty
