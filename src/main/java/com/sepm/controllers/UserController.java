@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Date;
 
 @Slf4j
 @RestController
@@ -48,10 +47,13 @@ public class UserController {
 
     @PutMapping("/passwordreset")
     public ResponseEntity changePassword(@RequestBody PasswordResetDto passwordResetDto) {
+        log.info(Type.STAFF.equals(passwordResetDto.getType()) + " :!staff type!");
         if (Type.MANAGER.equals(passwordResetDto.getType())) {
             return new ResponseEntity(managerService.changePassword(passwordResetDto), HttpStatus.OK);
+        } else if (Type.STAFF.equals(passwordResetDto.getType())) {
+            return new ResponseEntity(staffService.changePassword(passwordResetDto), HttpStatus.OK);
         }
-        return new ResponseEntity(staffService.changePassword(passwordResetDto),HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(false, HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/staff/{ownerId}/settime")
