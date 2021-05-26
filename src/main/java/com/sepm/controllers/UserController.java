@@ -23,7 +23,7 @@ public class UserController {
     private final WorkTimeService workTimeService;
     private final ShiftService shiftService;
 
-    @PostMapping("/login")
+    @PostMapping("/login")//done
     public ResponseEntity login(@RequestBody LoginDto loginDto){
 
         if("Manager".equals(loginDto.getType())){
@@ -33,19 +33,19 @@ public class UserController {
         }
     }
 
-    @PostMapping("/registration")
+    @PostMapping("/registration")//done
     public ResponseEntity staffRegistration(@Valid @RequestBody StaffPostDto dto) {
         log.info("aaa",dto.getHourLimits());
         return new ResponseEntity(staffService.createStaff(dto), HttpStatus.OK);
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/signup")//done
     public ResponseEntity managerSignup(@Valid @RequestBody ManagerPostDto dto) {
         log.info("邮箱",dto.getEmail());
         return new ResponseEntity(managerService.createManager(dto), HttpStatus.OK);
     }
 
-    @PutMapping("/passwordreset")
+    @PutMapping("/passwordreset")//done
     public ResponseEntity changePassword(@RequestBody PasswordResetDto passwordResetDto) {
         log.info(Type.STAFF.equals(passwordResetDto.getType()) + " :!staff type!");
         if (Type.MANAGER.equals(passwordResetDto.getType())) {
@@ -82,7 +82,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/staffprofile")
+    @GetMapping("/staffprofile")//done
     public ResponseEntity fetchStaffProfileByEmail(@RequestParam("email") String email) {
 
         return new ResponseEntity(staffService.fetchProfileByEmail(email), HttpStatus.OK);
@@ -93,31 +93,31 @@ public class UserController {
         return new ResponseEntity(staffService.changeStaffProfile(dto), HttpStatus.OK);
     }
 
-    @GetMapping("/managerprofile")
+    @GetMapping("/managerprofile")//done
     public ResponseEntity fetchManagerProfileByEmail(@RequestParam("email") String email) {
 
         return new ResponseEntity(managerService.fetchProfileByEmail(email), HttpStatus.OK);
     }
 
-    @PutMapping("/managerprofile/change")
+    @PutMapping("/managerprofile/change")//done
     public ResponseEntity changeManagerProfile(@RequestBody ManagerProfileDto dto){
         return new ResponseEntity(managerService.changeManagerProfile(dto), HttpStatus.OK);
     }
 
-    @GetMapping("/allmanagers")
+    @GetMapping("/allmanagers")//done
     public ResponseEntity fetAllManagers() {
         return new ResponseEntity(managerService.fetchAllManagers(), HttpStatus.OK);
     }
 
-    @GetMapping("/allstaff")
+    @GetMapping("/allstaff")//done
     public ResponseEntity fetAllStaff() {
         return new ResponseEntity(staffService.fetchAllStaff(), HttpStatus.OK);
     }
 
 
-    @PutMapping("/changehourlimits")
-    public ResponseEntity changeStaffHourLimits(@RequestParam("hourlimits") Integer hourLimits, @RequestParam("id") Long id) {
-        staffService.changeHourLimits(hourLimits, id);
+    @PutMapping("/changehourlimits")//done
+    public ResponseEntity changeStaffHourLimits(@RequestBody LimitTimeChangeDto limitTimeChangeDto) {
+        staffService.changeHourLimits(limitTimeChangeDto.getHourLimits(), limitTimeChangeDto.getId());
         return new ResponseEntity("Succeed to change the hour limits!", HttpStatus.OK);
     }
 
