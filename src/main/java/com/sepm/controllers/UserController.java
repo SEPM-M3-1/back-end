@@ -97,7 +97,7 @@ public class UserController {
         return new ResponseEntity(managerService.fetchProfileByEmail(email), HttpStatus.OK);
     }
 
-    @PostMapping("/managerprofile")
+    @PutMapping("/managerprofile/change")
     public ResponseEntity changeManagerProfile(@RequestBody ManagerProfileDto dto){
         return new ResponseEntity(managerService.changeManagerProfile(dto), HttpStatus.OK);
     }
