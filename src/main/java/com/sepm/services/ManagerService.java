@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 public class ManagerService {
 
     private final ManagerRepository managerRepository;
+    private final EmailService emailService;
     private final ManagerMapper mapper;
 
     public LoginGetDto managerLogin(String email,String password){
@@ -40,6 +41,9 @@ public class ManagerService {
             Manager test = mapper.toEntity(managerPostDto);
             log.info("测试： "+test);
             Manager manager = managerRepository.save(mapper.toEntity(managerPostDto));
+            String subject = "Confirmation of new staff account of " + manager.getFullName();
+            String content = "Your password is " + manager.getPassword() + ". Please login with your email.";
+            emailService.sendEMail(manager.getEmail(),subject,content);
             return mapper.fromEntity(manager);
         }
         return null;

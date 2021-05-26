@@ -22,6 +22,8 @@ public class StaffService {
 
     private final StaffRepository staffRepository;
     private final StaffMapper staffMapper;
+    private final EmailService emailService;
+
 
     public LoginGetDto staffLogin(String email, String password){
         if(emailExists(email)){
@@ -36,6 +38,9 @@ public class StaffService {
     public StaffGetDto createStaff(StaffPostDto staffPostDto) {
         if(!emailExists(staffPostDto.getEmail())){
             Staff staff = staffRepository.save(staffMapper.toEntity(staffPostDto));
+            String subject = "Confirmation of new staff account of " + staff.getFullName();
+            String content = "Your password is " + staff.getPassword() + ". Please login with your email.";
+            emailService.sendEMail(staff.getEmail(),subject,content);
             return staffMapper.fromEntity(staff);
         }
         throw new StaffAlreadyExistException("Staff Already Exist");
