@@ -23,7 +23,7 @@ public class Shift {
     @Column(name = "end_date", nullable = false)
     private Long endDate;
 
-    @Column(name = "location", nullable = false)
+    @Column(name = "location")
     private String location;
 
     @Column(name = "request_exchange")
@@ -31,6 +31,9 @@ public class Shift {
 
     @Column(name = "allocated", nullable = false)
     private Long allocated;
+
+    @Column(name = "status", nullable = false)
+    private Status status;
 
 //    @EqualsAndHashCode.Exclude
 //    @ToString.Exclude

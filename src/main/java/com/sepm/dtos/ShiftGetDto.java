@@ -14,17 +14,12 @@ import java.util.Date;
 @Builder
 public class ShiftGetDto {
 
+    private Long id;
 
-    @NotEmpty
     private Long endDate;
 
-    @NotEmpty
     private Long startDate;
 
-    @NotEmpty
-    private String location;
-
-    @NotEmpty
     private Long allocated;
 
 }
