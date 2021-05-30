@@ -39,7 +39,6 @@ public class ManagerService {
     public ManagerGetDto createManager(ManagerPostDto managerPostDto){
         if(!emailExists(managerPostDto.getEmail())){
             Manager test = mapper.toEntity(managerPostDto);
-            log.info("测试： "+test);
             Manager manager = managerRepository.save(mapper.toEntity(managerPostDto));
             String subject = "Confirmation of new staff account of " + manager.getFullName();
             String content = "Your password is " + manager.getPassword() + ". Please login with your email.";
