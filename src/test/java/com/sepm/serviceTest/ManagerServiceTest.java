@@ -1,12 +1,10 @@
 package com.sepm.serviceTest;
 
 import com.sepm.dao.ManagerRepository;
-import com.sepm.dtos.LoginGetDto;
-import com.sepm.dtos.ManagerPostDto;
-import com.sepm.dtos.PasswordResetDto;
-import com.sepm.dtos.Type;
+import com.sepm.dtos.*;
 import com.sepm.entities.Manager;
 import com.sepm.exception.BadCredentialsException;
+import com.sepm.exception.ManagerNotFundException;
 import com.sepm.mapper.ManagerMapper;
 import com.sepm.services.EmailService;
 import com.sepm.services.ManagerService;
@@ -52,7 +50,7 @@ public class ManagerServiceTest {
     }
 
     @Test
-    public void managerLoginFailWhenLoginInfoCorrect() {
+    public void managerLoginFailWhenLoginInfoWrong() {
 
         String email = "test1@gmail.com";
         String password = "password1";
@@ -138,6 +136,44 @@ public class ManagerServiceTest {
 
     }
 
+    @Test
+    public void fetchProfileByEmailSuccessful() {
+        String email = "test@gmail.com";
+        String password = "password";
+        Manager manager = Manager.builder()
+                .email("user@gmail.com")
+                .password("len123")
+                .fullName("user")
+                .phone("0481111111")
+                .build();
 
+        PasswordResetDto passwordResetDto = PasswordResetDto.builder()
+                .id(1L)
+                .oldPassword("oldPassword")
+                .password("password")
+                .type(Type.STAFF)
+                .build();
 
+        when(managerRepository.findByEmail(email)).thenReturn(Optional.of(manager));
+        ManagerProfileDto managerProfileDto = managerService.fetchProfileByEmail(email);
+        assertEquals("user@gmail.com", managerProfileDto.getEmail());
+    }
+
+    @Test
+    public void fetchProfileByEmailFail() {
+
+        String email = "test1@gmail.com";
+        String password = "password1";
+        Manager returnedManager = Manager.builder()
+                .id(1L)
+                .password("password")
+                .phone("0481111111")
+                .fullName("fullName")
+                .email("email")
+                .build();
+
+        when(managerRepository.findByEmail("test@email")).thenReturn(Optional.ofNullable(returnedManager));
+        assertThrows(ManagerNotFundException.class, () -> managerService.fetchProfileByEmail(email));
+
+    }
 }
