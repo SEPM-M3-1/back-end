@@ -17,9 +17,6 @@ public class WorkTimeDto {
 
 
 
-    @NotEmpty
-    private String ownerID;
-
     //Mon Mar 16
     @NotEmpty
     private Long endDate;
